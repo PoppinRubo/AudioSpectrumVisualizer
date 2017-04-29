@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="AudioSpectrumVisualizer开发记录文档">
     <title>AudioSpectrumVisualizer开发记录文档</title>
+    <link rel="stylesheet" href="css/shCoreFadeToGrey.css">
     <style type="text/css">
         html, body {
             margin: 0;
@@ -31,43 +32,233 @@
         img {
             position: relative;
             display: block;
-            width: 700px;
-            height: 400px;
-            margin:15px auto;
+            width: 300px;
+            height: 170px;
+            margin: 15px 0 15px 150px;
         }
-        .f{
+
+        .f {
             position: static;
-            display:inline;
+            display: inline;
             width: 22px;
             height: 22px;
             margin: 10px 5px 0 5px;
         }
+
+        paragraph {
+            padding-left: 25px;
+            margin: 10px 0;
+        }
+
+        .codeContent {
+            position: relative;
+            width: 100%;
+            font-size: 9px;
+            margin: 5px auto;
+        }
     </style>
-    <link rel="stylesheet" href="css/default.css">
-    <script src="js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+
 </head>
 <body>
 <p>
 <h2>AudioSpectrumVisualizer</h2></p>
-<p><h5>一、关于AudioSpectrumVisualizer</h5></p>
+<p><h4>一、关于AudioSpectrumVisualizer</h4></p>
 <p class="h">1、AudioSpectrumVisualizer是什么呢?<br>
-    <w></w>
-    AudioSpectrumVisualizer是音频频谱可视化,说白了就是播放音频的时候把数据展示出来。
+    <paragraph>AudioSpectrumVisualizer是音频频谱可视化,说白了就是播放音频的时候把数据展示出来。</paragraph>
+
 </p>
 <p class="h">2、想要达到什么效果呢？<br>
-    <w></w>
-    播放音乐就像这样<img class="f" src="images/face/0.gif"><br><img src="images/1.gif">
+    <paragraph>
+        播放音乐就像这样<img class="f" src="images/face/0.gif"><br><img src="images/1.gif">
+    </paragraph>
     <br>
-    <w></w>
-    或者这样<img class="f" src="images/face/2.png"><br><img src="images/2.gif">
+    <paragraph>
+        或者这样<img class="f" src="images/face/2.png"><br><img src="images/2.gif">
+    </paragraph>
     <br>
-    <w></w>
-    这样?<img class="f" src="images/face/3.gif"><br><img src="images/3.gif">
+    <paragraph>
+        这样?<img class="f" src="images/face/3.gif"><br><img src="images/3.gif">
+    </paragraph>
+
 </p>
-<p><h5>二、开发步骤</h5></p>
-<p class="h">1、想要展示肯定是要先获取播放数据<br>
-    <w></w><pre><code class="html">...</code></pre>
-</p>
+<p><h4>二、开发步骤</h4></p>
+<p class="h">1、想要展示肯定是要先获取播放数据
+    <br>
+    <paragraph>
+        获取文件数据需要请求文件地址返回ArrayBuffer
+    </paragraph>
+    <br>
+    <paragraph>
+        ArrayBuffer是什么呢？
+    </paragraph>
+    <br>
+    <paragraph>
+        这个ArrayBuffer类型化数组，类型化数组是JavaScript操作二进制数据的一个接口。最初为了满足JavaScript与显卡之间大量的、实时的数据交换，
+        它们之间的数据通信必须是二进制的，而不能是传统的文本格式的背景下诞生的。类型化数组是建立在ArrayBuffer对象的基础上的。它的作用是，分配一段可以存放数据的连续内存区域。
+    </paragraph>
+    <br>
+    <paragraph>
+        ArrayBuffer作为内存区域，可以存放多种类型的数据。不同数据有不同的存储方式，这就叫做“视图”。目前，JavaScript提供以下类型的视图：
+    </paragraph>
+    <br>
+    <paragraph>
+        Int8Array：8位有符号整数，长度1个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Uint8Array：8位无符号整数，长度1个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Int16Array：16位有符号整数，长度2个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Uint16Array：16位无符号整数，长度2个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Int32Array：32位有符号整数，长度4个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Uint32Array：32位无符号整数，长度4个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Float32Array：32位浮点数，长度4个字节。
+    </paragraph>
+    <br>
+    <paragraph>
+        Float64Array：64位浮点数，长度8个字节。
+    </paragraph>
+<div class="codeContent">
+    <div id="highlighter_973398" class="syntaxhighlighter nogutter  js">
+        <div class="toolbar"><span><a href="https://github.com/Poppinrubo/AudioSpectrumVisualizer" class="toolbar_item command_help help">?</a></span></div>
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="code">
+                    <div class="container">
+                        <div class="line number1 index0 alt2"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">//实例化一个音频类型window.AudioContext</code>
+                        </div>
+                        <div class="line number2 index1 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">function</code>&nbsp;<code class="js plain">windowAudioContext()&nbsp;{</code>
+                        </div>
+                        <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//下面这些是为了统一Chrome和Firefox的AudioContext</code></div>
+                        <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">window.AudioContext&nbsp;=&nbsp;window.AudioContext&nbsp;||&nbsp;window.webkitAudioContext&nbsp;||&nbsp;window.mozAudioContext&nbsp;||&nbsp;window.msAudioContext;</code>
+                        </div>
+                        <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">window.requestAnimationFrame&nbsp;=&nbsp;window.requestAnimationFrame&nbsp;||&nbsp;window.webkitRequestAnimationFrame&nbsp;||&nbsp;window.mozRequestAnimationFrame&nbsp;||&nbsp;window.msRequestAnimationFrame;</code>
+                        </div>
+                        <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">window.cancelAnimationFrame&nbsp;=&nbsp;window.cancelAnimationFrame&nbsp;||&nbsp;window.webkitCancelAnimationFrame&nbsp;||&nbsp;window.mozCancelAnimationFrame&nbsp;||&nbsp;window.msCancelAnimationFrame;</code>
+                        </div>
+                        <div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">try</code>&nbsp;<code class="js plain">{</code></div>
+                        <div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">Myself.audioContext&nbsp;=&nbsp;</code><code
+                                class="js keyword">new</code>&nbsp;<code class="js plain">AudioContext();</code></div>
+                        <div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//AudioContext实例化后就拉取音频</code></div>
+                        <div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">loadSound();</code></div>
+                        <div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}&nbsp;</code><code class="js keyword">catch</code>&nbsp;<code
+                                class="js plain">(e)&nbsp;{</code></div>
+                        <div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">console.log(e&nbsp;+&nbsp;</code><code class="js string">',您的浏览器不支持&nbsp;AudioContext'</code><code
+                                class="js plain">);</code></div>
+                        <div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number14 index13 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
+                        <div class="line number15 index14 alt2">&nbsp;</div>
+                        <div class="line number16 index15 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//加载音频对象方法</code></div>
+                        <div class="line number17 index16 alt2"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">function</code>&nbsp;<code class="js plain">loadSound()&nbsp;{</code>
+                        </div>
+                        <div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code
+                                class="js plain">request&nbsp;=&nbsp;</code><code
+                                class="js keyword">new</code>&nbsp;<code class="js plain">XMLHttpRequest();&nbsp;</code><code
+                                class="js comments">//建立一个请求</code></div>
+                        <div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">request.open(</code><code class="js string">'GET'</code><code
+                                class="js plain">,&nbsp;Myself.audioUrl,&nbsp;</code><code
+                                class="js keyword">true</code><code class="js plain">);&nbsp;</code><code
+                                class="js comments">//配置请求类型，文件路径,路径不可跨域</code></div>
+                        <div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">request.responseType&nbsp;=&nbsp;</code><code class="js string">'arraybuffer'</code><code
+                                class="js plain">;&nbsp;</code><code class="js comments">//配置数据返回类型</code></div>
+                        <div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">request.onload&nbsp;=&nbsp;</code><code
+                                class="js keyword">function</code>&nbsp;<code class="js plain">()&nbsp;{</code></div>
+                        <div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//拉取成功返回ArrayBuffer(一块内存空间,缓冲),调用播放</code></div>
+                        <div class="line number23 index22 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">play(request.response);</code></div>
+                        <div class="line number24 index23 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number25 index24 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">request.send();</code></div>
+                        <div class="line number26 index25 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
+                        <div class="line number27 index26 alt2">&nbsp;</div>
+                        <div class="line number28 index27 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">function</code>&nbsp;<code
+                                class="js plain">play(audioData)&nbsp;{</code></div>
+                        <div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">audioContext&nbsp;=&nbsp;Myself.audioContext;</code>
+                        </div>
+                        <div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//解码ArrayBuffer</code></div>
+                        <div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioContext.decodeAudioData(audioData).then(</code><code
+                                class="js keyword">function</code>&nbsp;<code
+                                class="js plain">(decodedData)&nbsp;{</code></div>
+                        <div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//解码完成,播放,到这里你就可以听到声音了</code></div>
+                        <div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">audioBufferSouceNode&nbsp;=&nbsp;audioContext.createBufferSource();</code>
+                        </div>
+                        <div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioBufferSouceNode.connect(audioContext.destination);</code></div>
+                        <div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioBufferSouceNode.buffer&nbsp;=&nbsp;decodedData;</code></div>
+                        <div class="line number36 index35 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioBufferSouceNode.start(0);</code></div>
+                        <div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">},&nbsp;</code><code class="js keyword">function</code>&nbsp;<code
+                                class="js plain">(e)&nbsp;{</code></div>
+                        <div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">console.log(e+</code><code class="js string">",文件解码失败!"</code><code
+                                class="js plain">);</code></div>
+                        <div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">});</code></div>
+                        <div class="line number40 index39 alt1">&nbsp;</div>
+                        <div class="line number41 index40 alt2"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+<paragraph>
+    暂时先这样^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</paragraph>
+<br>
 </body>
 </html>
