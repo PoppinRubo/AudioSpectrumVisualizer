@@ -73,7 +73,7 @@ function Visualizer() {
     //画出频谱
     function drawSpectrum(analyser) {
         //颜色数组
-        var colorArray=['#f82466','#00FFFF','#AFFF7C','#FFAA6A','#6AD5FF','#D26AFF','#FF6AE6','FF6AB8','#FF6A6A'];
+        var colorArray=['#f82466','#00FFFF','#AFFF7C','#FFAA6A','#6AD5FF','#D26AFF','#FF6AE6','#FF6AB8','#FF6A6A'];
         //颜色随机数
         var colorRandom=Math.floor(Math.random()*colorArray.length);
         //效果随机数
