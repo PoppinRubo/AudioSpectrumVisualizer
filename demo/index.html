@@ -21,7 +21,7 @@
             //实例化,调用接口
             var visualizer = new Visualizer();
             visualizer.config({
-                audioUrl: "/demo/music/1.mp3",//音频地址,注:地址不可跨域
+                audioUrl: "/AudioSpectrumVisualizer/demo/music/1.mp3",//音频地址,注:地址不可跨域
                 canvasId:"show"//canvas 标签的id
             });
         </script>
@@ -33,7 +33,14 @@
     </body>
 <script>
     //随机背景
-    var bgArray=['/demo/images/bg_1.jpg','/demo/images/bg_2.jpg','/demo/images/bg_3.jpg','/demo/images/bg_4.jpg','/demo/images/bg_5.jpg','/demo/images/bg_6.jpg'];
+    var bgArray = [
+        '/AudioSpectrumVisualizer/demo/images/bg_1.jpg',
+        '/AudioSpectrumVisualizer/demo/images/bg_2.jpg',
+        '/AudioSpectrumVisualizer/demo/images/bg_3.jpg',
+        '/AudioSpectrumVisualizer/demo/images/bg_4.jpg',
+        '/AudioSpectrumVisualizer/demo/images/bg_5.jpg',
+        '/AudioSpectrumVisualizer/demo/images/bg_6.jpg'
+    ];
     document.body.style.background = "url("+bgArray[Math.floor(Math.random()*bgArray.length)]+")";
     document.body.style.backgroundSize="100% 100%";
 </script>
