@@ -7,7 +7,7 @@
 
 1、引入js
   ```javascript
-      <script src="js/visualizer.js" type="text/javascript"></script>
+    <script src="js/visualizer.js" type="text/javascript"></script>
   ```
 2、创建canvas
   ```html
