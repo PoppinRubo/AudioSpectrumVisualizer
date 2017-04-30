@@ -26,5 +26,6 @@
 
 [开发记录文档](https://poppinrubo.github.io/AudioSpectrumVisualizer/record "开发记录")  
 
+[Demo](https://poppinrubo.github.io/AudioSpectrumVisualizer/demo/ "查看demo")  
 
 
