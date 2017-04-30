@@ -52,9 +52,19 @@
 
         .codeContent {
             position: relative;
-            width: 100%;
+            width: 95%;
             font-size: 9px;
             margin: 5px auto;
+            border: solid 1px #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: cyan;
+        }
+
+        a:hover {
+            color: yellow;
         }
     </style>
 
@@ -132,8 +142,21 @@
     <paragraph>
         Float64Array：64位浮点数，长度8个字节。
     </paragraph>
+    <br>
+    <br>
+    <paragraph>
+        还有一个需要注意的是请求文件要在服务器环境下才能正常运行要不然会报一个 <br>
+        XMLHttpRequest cannot load file:///E:/music/1.mp3. Cross origin requests are only supported for protocol
+        schemes: http, data, chrome, se-extension, https, chrome-extension-resource.loadSound @ visualizer.js:44
+        <br>
+        file:///E:/images/bg_2.jpg Failed to load resource: net::ERR_FILE_NOT_FOUND
+        <br>
+        也就是说XMLHttpRequest 中的 open()认为这不在一个域里面,参考<a
+            href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank">浏览器的同源策略</a>
+    </paragraph>
+</p>
 <div class="codeContent">
-    <div id="highlighter_973398" class="syntaxhighlighter nogutter  js">
+    <div id="highlighter_316943" class="syntaxhighlighter nogutter  js">
         <div class="toolbar"><span><a href="https://github.com/Poppinrubo/AudioSpectrumVisualizer" class="toolbar_item command_help help">?</a></span></div>
         <table border="0" cellpadding="0" cellspacing="0">
             <tbody>
@@ -214,38 +237,65 @@
                         <div class="line number27 index26 alt2">&nbsp;</div>
                         <div class="line number28 index27 alt1"><code
                                 class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//解码播放,提取数据</code></div>
+                        <div class="line number29 index28 alt2"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js keyword">function</code>&nbsp;<code
                                 class="js plain">play(audioData)&nbsp;{</code></div>
-                        <div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                        <div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js keyword">var</code>&nbsp;<code class="js plain">audioContext&nbsp;=&nbsp;Myself.audioContext;</code>
                         </div>
-                        <div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js comments">//解码ArrayBuffer</code></div>
                         <div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//解码ArrayBuffer</code></div>
+                        <div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js plain">audioContext.decodeAudioData(audioData).then(</code><code
                                 class="js keyword">function</code>&nbsp;<code
                                 class="js plain">(decodedData)&nbsp;{</code></div>
-                        <div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js comments">//解码完成,播放,到这里你就可以听到声音了</code></div>
                         <div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js keyword">var</code>&nbsp;<code class="js plain">audioBufferSouceNode&nbsp;=&nbsp;audioContext.createBufferSource();</code>
-                        </div>
+                                class="js comments">//进来到这里代表解码完成</code></div>
                         <div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js plain">audioBufferSouceNode.connect(audioContext.destination);</code></div>
+                                class="js comments">//AudioBuffer接口表示存在存储器里的短音频资产，利用AudioContext.decodeAudioData()方法从音频文件构建，</code>
+                        </div>
                         <div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js plain">audioBufferSouceNode.buffer&nbsp;=&nbsp;decodedData;</code></div>
+                                class="js comments">//&nbsp;或者利用&nbsp;AudioContext.createBuffer()构建于原数据。</code></div>
                         <div class="line number36 index35 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//&nbsp;一旦将其放入AudioBuffer，可以传递到一个&nbsp;AudioBufferSourceNode进行播放</code>
+                        </div>
+                        <div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">audioBufferSouceNode&nbsp;=&nbsp;audioContext.createBufferSource(),</code>
+                        </div>
+                        <div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">analyser&nbsp;=&nbsp;audioContext.createAnalyser();</code></div>
+                        <div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//将source与分析器连接</code></div>
+                        <div class="line number40 index39 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioBufferSouceNode.connect(analyser);</code></div>
+                        <div class="line number41 index40 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//将分析器与destination连接，形成到达扬声器的通路</code></div>
+                        <div class="line number42 index41 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">analyser.connect(audioContext.destination);</code></div>
+                        <div class="line number43 index42 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//将上面解码得到的decodedData数据赋值给source</code></div>
+                        <div class="line number44 index43 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">audioBufferSouceNode.buffer&nbsp;=&nbsp;decodedData;</code></div>
+                        <div class="line number45 index44 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//播放,到这里就可以听到声音了</code></div>
+                        <div class="line number46 index45 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js plain">audioBufferSouceNode.start(0);</code></div>
-                        <div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                        <div class="line number47 index46 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//接下来把分析器传出去创建频谱</code></div>
+                        <div class="line number48 index47 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">drawSpectrum(analyser);</code></div>
+                        <div class="line number49 index48 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js plain">},&nbsp;</code><code class="js keyword">function</code>&nbsp;<code
                                 class="js plain">(e)&nbsp;{</code></div>
-                        <div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
-                                class="js plain">console.log(e+</code><code class="js string">",文件解码失败!"</code><code
-                                class="js plain">);</code></div>
-                        <div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                        <div class="line number50 index49 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">console.log(e&nbsp;+&nbsp;</code><code
+                                class="js string">",文件解码失败!"</code><code class="js plain">);</code></div>
+                        <div class="line number51 index50 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
                                 class="js plain">});</code></div>
-                        <div class="line number40 index39 alt1">&nbsp;</div>
-                        <div class="line number41 index40 alt2"><code
+                        <div class="line number52 index51 alt1">&nbsp;</div>
+                        <div class="line number53 index52 alt2"><code
                                 class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
                     </div>
                 </td>
@@ -258,7 +308,141 @@
 <br>
 <paragraph>
     暂时先这样^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    <br>
+
+</paragraph>
+<paragraph>
+    呃~ 继续 接着昨天的<img class="f" src="images/face/4.gif">
 </paragraph>
 <br>
+<p class="h">2、根据获取的数据画出频谱
+    <br>
+    <paragraph>
+        绘制需要用canvas标签来当容器
+    </paragraph>
+</p>
+
+<div class="codeContent">
+    <div id="highlighter_362021" class="syntaxhighlighter nogutter  js">
+        <div class="toolbar"><span><a href="https://github.com/Poppinrubo/AudioSpectrumVisualizer" class="toolbar_item command_help help">?</a></span></div>
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="code">
+                    <div class="container">
+                        <div class="line number1 index0 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">canvas&nbsp;=&nbsp;document.getElementById(Myself.canvasId),</code>
+                        </div>
+                        <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">cwidth&nbsp;=&nbsp;canvas.width,</code></div>
+                        <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">cheight&nbsp;=&nbsp;canvas.height&nbsp;-&nbsp;2,</code></div>
+                        <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">meterWidth&nbsp;=&nbsp;10,&nbsp;</code><code class="js comments">//频谱条宽度</code>
+                        </div>
+                        <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">gap&nbsp;=&nbsp;2,&nbsp;</code><code class="js comments">//频谱条间距</code>
+                        </div>
+                        <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">capHeight&nbsp;=&nbsp;2,</code></div>
+                        <div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">capStyle&nbsp;=&nbsp;</code><code class="js string">'#fff'</code><code
+                                class="js plain">,</code></div>
+                        <div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">meterNum&nbsp;=&nbsp;800&nbsp;/&nbsp;(10&nbsp;+&nbsp;2),&nbsp;</code><code
+                                class="js comments">//频谱条数量</code></div>
+                        <div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">capYPositionArray&nbsp;=&nbsp;[];&nbsp;</code><code
+                                class="js comments">//将上一画面各帽头的位置保存到这个数组</code></div>
+                        <div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx&nbsp;=&nbsp;canvas.getContext(</code><code
+                                class="js string">'2d'</code><code class="js plain">),</code></div>
+                        <div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">gradient&nbsp;=&nbsp;ctx.createLinearGradient(0,&nbsp;0,&nbsp;0,&nbsp;300);</code>
+                        </div>
+                        <div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">gradient.addColorStop(1,&nbsp;Myself.color);</code></div>
+                        <div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code
+                                class="js plain">drawMeter&nbsp;=&nbsp;</code><code class="js keyword">function</code>&nbsp;<code
+                                class="js plain">()&nbsp;{</code></div>
+                        <div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">array&nbsp;=&nbsp;</code><code
+                                class="js keyword">new</code>&nbsp;<code class="js plain">Uint8Array(analyser.frequencyBinCount);</code>
+                        </div>
+                        <div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">analyser.getByteFrequencyData(array);</code></div>
+                        <div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">step&nbsp;=&nbsp;Math.round(array.length&nbsp;/&nbsp;meterNum);&nbsp;</code><code
+                                class="js comments">//计算采样步长</code></div>
+                        <div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.clearRect(0,&nbsp;0,&nbsp;cwidth,&nbsp;cheight);</code></div>
+                        <div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">for</code>&nbsp;<code class="js plain">(</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;meterNum;&nbsp;i++)&nbsp;{</code>
+                        </div>
+                        <div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">var</code>&nbsp;<code class="js plain">value&nbsp;=&nbsp;array[i&nbsp;*&nbsp;step];&nbsp;</code><code
+                                class="js comments">//获取当前能量值</code></div>
+                        <div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">if</code>&nbsp;<code class="js plain">(capYPositionArray.length&nbsp;&lt;&nbsp;Math.round(meterNum))&nbsp;{</code>
+                        </div>
+                        <div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">capYPositionArray.push(value);&nbsp;</code><code class="js comments">//初始化保存帽头位置的数组，将第一个画面的数据压入其中</code>
+                        </div>
+                        <div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number23 index22 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">;</code></div>
+                        <div class="line number24 index23 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.fillStyle&nbsp;=&nbsp;capStyle;</code></div>
+                        <div class="line number25 index24 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//开始绘制帽头</code></div>
+                        <div class="line number26 index25 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js keyword">if</code>&nbsp;<code class="js plain">(value&nbsp;&lt;&nbsp;capYPositionArray[i])&nbsp;{&nbsp;</code><code
+                                class="js comments">//如果当前值小于之前值</code></div>
+                        <div class="line number27 index26 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.fillRect(i&nbsp;*&nbsp;12,&nbsp;cheight&nbsp;-&nbsp;(--capYPositionArray[i]),&nbsp;meterWidth,&nbsp;capHeight);&nbsp;</code><code
+                                class="js comments">//则使用前一次保存的值来绘制帽头</code></div>
+                        <div class="line number28 index27 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}&nbsp;</code><code class="js keyword">else</code>&nbsp;<code
+                                class="js plain">{</code></div>
+                        <div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.fillRect(i&nbsp;*&nbsp;12,&nbsp;cheight&nbsp;-&nbsp;value,&nbsp;meterWidth,&nbsp;capHeight);&nbsp;</code><code
+                                class="js comments">//否则使用当前值直接绘制</code></div>
+                        <div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">capYPositionArray[i]&nbsp;=&nbsp;value;</code></div>
+                        <div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">;</code></div>
+                        <div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js comments">//开始绘制频谱条</code></div>
+                        <div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.fillStyle&nbsp;=&nbsp;gradient;</code></div>
+                        <div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">ctx.fillRect(i&nbsp;*&nbsp;12,&nbsp;cheight&nbsp;-&nbsp;value&nbsp;+&nbsp;capHeight,&nbsp;meterWidth,&nbsp;cheight);</code>
+                        </div>
+                        <div class="line number36 index35 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">requestAnimationFrame(drawMeter);</code></div>
+                        <div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">}</code></div>
+                        <div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                class="js plain">requestAnimationFrame(drawMeter);</code></div>
+                        <div class="line number40 index39 alt1"><code
+                                class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="h">到这里就出效果了
+
+</p>
 </body>
 </html>
