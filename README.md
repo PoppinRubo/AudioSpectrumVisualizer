@@ -5,21 +5,21 @@
 
 使用方法
 
->>1、引入js
-  ```JavaScript
+1、引入js
+  ```javascript
       <script src="js/visualizer.js" type="text/javascript"></script>
   ```
->>2、创建canvas
+2、创建canvas
   ```html
     <canvas id="show" width="560" height="350"></canvas>
 ```
 
->>3、实例化,调用接口
-  ```JavaScrip
-var visualizer = new Visualizer();
-            visualizer.config({
-                audioUrl: "/music/1.mp3",//音频地址,注:地址不可跨域
-                canvasId:"show"//canvas 标签的id
+3、实例化,调用接口
+  ```javascript
+      var visualizer = new Visualizer();
+      visualizer.config({
+              audioUrl: "/music/1.mp3",//音频地址,注:地址不可跨域
+              canvasId:"show"//canvas 标签的id
             });
   ```
 
