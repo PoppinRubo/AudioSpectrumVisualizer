@@ -5,16 +5,16 @@
 
 使用方法
 
-引入js
+>>1、引入js
   ```JavaScript
       <script src="js/visualizer.js" type="text/javascript"></script>
   ```
-创建canvas
+>>2、创建canvas
   ```html
     <canvas id="show" width="560" height="350"></canvas>
 ```
 
-实例化,调用接口
+>>3、实例化,调用接口
   ```JavaScrip
 var visualizer = new Visualizer();
             visualizer.config({
