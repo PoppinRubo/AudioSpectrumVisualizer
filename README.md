@@ -3,7 +3,8 @@
 <br>
 ![Alt text](https://github.com/Poppinrubo/AudioSpectrumVisualizer/blob/gh-pages/images/4.gif)
 
-######使用方法
+使用方法
+-------
 
 1、引入js
   ```javascript
