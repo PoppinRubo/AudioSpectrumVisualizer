@@ -66,6 +66,14 @@
         a:hover {
             color: yellow;
         }
+        .dataintable{
+            margin: 0 auto;
+            border: #aaa;
+            color: #d6d6d6;
+        }
+        td {
+            border: solid 1px #aaa;
+        }
     </style>
 
 </head>
@@ -92,6 +100,149 @@
 
 </p>
 <p><h4>二、开发步骤</h4></p>
+<p class="h">先查下Audio 对象有些什么东西</p>
+<table class="dataintable">
+    <tbody><tr>
+        <th style="width:30%;">属性</th>
+        <th>描述</th>
+    </tr>
+
+    <tr>
+        <td>audioTracks</td>
+        <td>返回表示可用音频轨道的 AudioTrackList 对象。</td>
+    </tr>
+
+    <tr>
+        <td>autoplay</td>
+        <td>设置或返回是否在就绪（加载完成）后随即播放音频。</td>
+    </tr>
+
+    <tr>
+        <td>buffered</td>
+        <td>返回表示音频已缓冲部分的 TimeRanges 对象。</td>
+    </tr>
+
+    <tr>
+        <td>controller</td>
+        <td>返回表示音频当前媒体控制器的 MediaController 对象。</td>
+    </tr>
+
+    <tr>
+        <td>controls</td>
+        <td>设置或返回音频是否应该显示控件（比如播放/暂停等）。</td>
+    </tr>
+
+    <tr>
+        <td>crossOrigin</td>
+        <td>设置或返回音频的 CORS 设置。</td>
+    </tr>
+
+    <tr>
+        <td>currentSrc</td>
+        <td>返回当前音频的 URL。</td>
+    </tr>
+
+    <tr>
+        <td>currentTime</td>
+        <td>设置或返回音频中的当前播放位置（以秒计）。</td>
+    </tr>
+
+    <tr>
+        <td>defaultMuted</td>
+        <td>设置或返回音频默认是否静音。</td>
+    </tr>
+
+    <tr>
+        <td>defaultPlaybackRate</td>
+        <td>设置或返回音频的默认播放速度。</td>
+    </tr>
+
+    <tr>
+        <td>duration</td>
+        <td>返回音频的长度（以秒计）。</td>
+    </tr>
+
+    <tr>
+        <td>ended</td>
+        <td>返回音频的播放是否已结束。</td>
+    </tr>
+
+    <tr>
+        <td>error</td>
+        <td>返回表示音频错误状态的 MediaError 对象。</td>
+    </tr>
+
+    <tr>
+        <td>loop</td>
+        <td>设置或返回音频是否应在结束时再次播放。</td>
+    </tr>
+
+    <tr>
+        <td>mediaGroup</td>
+        <td>设置或返回音频所属媒介组合的名称。</td>
+    </tr>
+
+    <tr>
+        <td>muted</td>
+        <td>设置或返回是否关闭声音。</td>
+    </tr>
+
+    <tr>
+        <td>networkState</td>
+        <td>返回音频的当前网络状态。</td>
+    </tr>
+
+    <tr>
+        <td>paused</td>
+        <td>设置或返回音频是否暂停。</td>
+    </tr>
+
+    <tr>
+        <td>playbackRate</td>
+        <td>设置或返回音频播放的速度。</td>
+    </tr>
+
+    <tr>
+        <td>played</td>
+        <td>返回表示音频已播放部分的 TimeRanges 对象。</td>
+    </tr>
+
+    <tr>
+        <td>preload</td>
+        <td>设置或返回音频的 preload 属性的值。</td>
+    </tr>
+
+    <tr>
+        <td>readyState</td>
+        <td>返回音频当前的就绪状态。</td>
+    </tr>
+
+    <tr>
+        <td>seekable</td>
+        <td>返回表示音频可寻址部分的 TimeRanges 对象。</td>
+    </tr>
+
+    <tr>
+        <td>seeking</td>
+        <td>返回用户当前是否正在音频中进行查找。</td>
+    </tr>
+
+    <tr>
+        <td>src</td>
+        <td>设置或返回音频的 src 属性的值。</td>
+    </tr>
+
+    <tr>
+        <td>textTracks</td>
+        <td>返回表示可用文本轨道的 TextTrackList 对象。</td>
+    </tr>
+
+    <tr>
+        <td>volume</td>
+        <td>设置或返回音频的音量。</td>
+    </tr>
+    </tbody></table>
+<p class="h">好,开始</p>
 <p class="h">1、想要展示肯定是要先获取播放数据
     <br>
     <paragraph>
